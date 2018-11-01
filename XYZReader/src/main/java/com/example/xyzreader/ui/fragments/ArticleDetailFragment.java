@@ -142,14 +142,14 @@ public class ArticleDetailFragment extends Fragment implements
         TextView bodyView = mRootView.findViewById(R.id.article_body);
 
         toolbar = mRootView.findViewById(R.id.frag_detail_toolb);
+
         collapsingToolbarLayout = mRootView.findViewById(R.id.collapsingToolbar);
 
         if (mCursor != null) {
             titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
+
             collapsingToolbarLayout.setTitle(" ");
-
             AppBarLayout detailsBar = mRootView.findViewById(R.id.bar);
-
             detailsBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
                 boolean isShow = false;
                 int scrollRange = -1;
@@ -192,11 +192,9 @@ public class ArticleDetailFragment extends Fragment implements
             bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY)
                     .replaceAll("(\r\n|\n)", "<br />")));
             ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
-                    .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL),
-                            new ImageLoader.ImageListener() {
+                    .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
                         @Override
-                        public void onResponse(final ImageLoader.ImageContainer imageContainer,
-                                               boolean b) {
+                        public void onResponse(final ImageLoader.ImageContainer imageContainer, boolean b) {
                             mPhotoView.setImageBitmap(imageContainer.getBitmap());
                             Bitmap bitmap = imageContainer.getBitmap();
                             if (bitmap != null) {
@@ -205,6 +203,7 @@ public class ArticleDetailFragment extends Fragment implements
                                 } catch (NullPointerException e) {
                                     Log.e(TAG, "Photo load failed");
                                 }
+
                             }
                         }
 
