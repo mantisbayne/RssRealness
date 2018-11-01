@@ -1,4 +1,4 @@
-package com.example.xyzreader.ui;
+package com.example.xyzreader.ui.fragments;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
@@ -28,6 +28,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
+import com.example.xyzreader.ui.ImageLoaderHelper;
+import com.example.xyzreader.ui.activities.ArticleDetailActivity;
+import com.example.xyzreader.ui.activities.ArticleListActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -139,17 +142,14 @@ public class ArticleDetailFragment extends Fragment implements
         TextView bodyView = mRootView.findViewById(R.id.article_body);
 
         toolbar = mRootView.findViewById(R.id.frag_detail_toolb);
-
         collapsingToolbarLayout = mRootView.findViewById(R.id.collapsingToolbar);
-
-
-        bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
 
         if (mCursor != null) {
             titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
-
             collapsingToolbarLayout.setTitle(" ");
+
             AppBarLayout detailsBar = mRootView.findViewById(R.id.bar);
+            
             detailsBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
                 boolean isShow = false;
                 int scrollRange = -1;
@@ -189,29 +189,22 @@ public class ArticleDetailFragment extends Fragment implements
                                 + "</font>"));
 
             }
-            bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n|\n)", "<br />")));
+            bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY)
+                    .replaceAll("(\r\n|\n)", "<br />")));
             ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
-                    .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
+                    .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL),
+                            new ImageLoader.ImageListener() {
                         @Override
-                        public void onResponse(final ImageLoader.ImageContainer imageContainer, boolean b) {
+                        public void onResponse(final ImageLoader.ImageContainer imageContainer,
+                                               boolean b) {
                             mPhotoView.setImageBitmap(imageContainer.getBitmap());
                             Bitmap bitmap = imageContainer.getBitmap();
                             if (bitmap != null) {
-                                Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-                                    @Override
-                                    public void onGenerated(Palette palette) {
-                                        mMutedColor = palette.getDarkMutedColor(0xFF333333);
-                                        mRootView.findViewById(R.id.meta_bar)
-                                                .setBackgroundColor(mMutedColor);
-                                        collapsingToolbarLayout.setContentScrimColor(mMutedColor);
-                                    }
-                                });
                                 try {
                                     toolbar.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
                                 } catch (NullPointerException e) {
                                     Log.e(TAG, "Photo load failed");
                                 }
-
                             }
                         }
 
