@@ -29,6 +29,7 @@ import java.util.HashMap;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 /**
@@ -136,7 +137,7 @@ public class SelectionBuilder {
      *
      * @see #getSelectionArgs()
      */
-    public String getSelection() {
+    private String getSelection() {
         if (mSelection != null) {
             return mSelection.toString();
         } else {
@@ -149,7 +150,7 @@ public class SelectionBuilder {
      *
      * @see #getSelection()
      */
-    public String[] getSelectionArgs() {
+    private String[] getSelectionArgs() {
         if (mSelectionArgs != null) {
             return mSelectionArgs.toArray(new String[mSelectionArgs.size()]);
         } else {
@@ -167,6 +168,7 @@ public class SelectionBuilder {
         }
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "SelectionBuilder[table=" + mTable + ", selection=" + getSelection()
@@ -176,15 +178,15 @@ public class SelectionBuilder {
     /**
      * Execute query using the current internal state as {@code WHERE} clause.
      */
-    public Cursor query(SQLiteDatabase db, String[] columns, String orderBy) {
+    Cursor query(SQLiteDatabase db, String[] columns, String orderBy) {
         return query(db, columns, null, null, orderBy, null);
     }
 
     /**
      * Execute query using the current internal state as {@code WHERE} clause.
      */
-    public Cursor query(SQLiteDatabase db, String[] columns, String groupBy,
-                        String having, String orderBy, String limit) {
+    private Cursor query(SQLiteDatabase db, String[] columns, String groupBy,
+                         String having, String orderBy, String limit) {
         assertTable();
         if (columns != null) mapColumns(columns);
         return db.query(mTable, columns, getSelection(), getSelectionArgs(), groupBy, having,
@@ -194,7 +196,7 @@ public class SelectionBuilder {
     /**
      * Execute update using the current internal state as {@code WHERE} clause.
      */
-    public int update(SQLiteDatabase db, ContentValues values) {
+    int update(SQLiteDatabase db, ContentValues values) {
         assertTable();
         return db.update(mTable, values, getSelection(), getSelectionArgs());
     }
@@ -202,7 +204,7 @@ public class SelectionBuilder {
     /**
      * Execute delete using the current internal state as {@code WHERE} clause.
      */
-    public int delete(SQLiteDatabase db) {
+    int delete(SQLiteDatabase db) {
         assertTable();
         return db.delete(mTable, getSelection(), getSelectionArgs());
     }
