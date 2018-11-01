@@ -31,45 +31,45 @@
                 <ImageView
                     android:id="@+id/photo"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/article_image_height"
-                    android:contentDescription="@string/article_image_accessibility"
+                    android:layout_height="wrap_content"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
-                    app:layout_collapseMode="pin" />
+                    app:layout_collapseMode="pin"
+                    android:contentDescription="@string/article_image_accessibility" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/photo_background_protection" />
 
-            </FrameLayout>
-
-            <LinearLayout
-                android:id="@+id/meta_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@color/primaryLightColor"
-                android:orientation="vertical"
-                android:elevation="@dimen/bar_elevation"
-                android:padding="@dimen/medium_padding"
-                tools:targetApi="lollipop">
-
-                <TextView
-                    android:id="@+id/article_headline"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                <LinearLayout
+                    android:id="@+id/meta_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:lineSpacingMultiplier="0.9"
-                    android:paddingBottom="@dimen/detail_metabar_title_bottom_padding"
-                    android:textStyle="bold" />
+                    android:layout_gravity="bottom"
+                    android:background="@color/primaryLightColor"
+                    android:orientation="vertical"
+                    android:elevation="@dimen/bar_elevation"
+                    android:padding="@dimen/medium_padding"
+                    tools:targetApi="lollipop">
 
-                <TextView
-                    android:id="@+id/article_subhead"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/article_headline"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingMultiplier="0.9"
+                        android:paddingBottom="@dimen/detail_metabar_title_bottom_padding"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/article_subhead"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </FrameLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/frag_detail_toolb"

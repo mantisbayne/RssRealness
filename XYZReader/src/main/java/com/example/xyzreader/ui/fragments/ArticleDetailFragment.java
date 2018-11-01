@@ -149,7 +149,7 @@ public class ArticleDetailFragment extends Fragment implements
             collapsingToolbarLayout.setTitle(" ");
 
             AppBarLayout detailsBar = mRootView.findViewById(R.id.bar);
-            
+
             detailsBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
                 boolean isShow = false;
                 int scrollRange = -1;

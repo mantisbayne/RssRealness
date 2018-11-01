@@ -12,5 +12,7 @@
     <dimen name="extra_small_margin">4dp</dimen>
     <dimen name="small_margin">8dp</dimen>
     <dimen name="medium_margin">16dp</dimen>
+    <dimen name="extra_large_margin">56dp</dimen>
+    <dimen name="article_image_height">350dp</dimen>
 
 </resources>
